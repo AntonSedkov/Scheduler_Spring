@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/scheduler
+    username: postgres
+    password: 7h3_d4t4b4sE
+
+flyway:
+  url: jdbc:postgresql://localhost:5432/scheduler
+  user: postgres
+  password: 7h3_d4t4b4sE
+  enabled: true
+  locations:
+    - 'classpath:db/migration'

@@ -1,0 +1,14 @@
+version: '3'
+services:
+
+  pgdb-course:
+    environment:
+    - DB_NAME=scheduler
+    - PGDATA=/var/lib/postgresql/data/scheduler
+    - POSTGRES_PASSWORD=7h3_d4t4b4sE
+    image: 'postgres:12.3-alpine'
+    ports:
+    - 5432:5432
+    restart: always
+    volumes:
+    - ./pgdb:/docker-entrypoint-initdb.d:ro
