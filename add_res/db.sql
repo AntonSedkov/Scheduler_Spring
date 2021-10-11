@@ -27,3 +27,21 @@ WHERE date >= '2020-12-28'
 CREATE INDEX task_date_idx ON task (date);
 
 CREATE INDEX task_done_idx ON task (done);
+
+CREATE TABLE users
+(
+    id       BIGSERIAL PRIMARY KEY,
+    login    TEXT NOT NULL,
+    password TEXT NOT NULL
+);
+
+
+
+
+
+
+
+
+
+
+

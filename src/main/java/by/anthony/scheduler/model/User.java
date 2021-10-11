@@ -3,18 +3,16 @@ package by.anthony.scheduler.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
-@Table(name = "task")
+@Table(name = "users")
 @Data
-public class Task {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private LocalDate date;
-    private String description;
-    private boolean done;
+    private String login;
+    private String password;
 }

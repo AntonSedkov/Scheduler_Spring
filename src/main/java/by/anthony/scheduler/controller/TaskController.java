@@ -1,54 +1,55 @@
 package by.anthony.scheduler.controller;
 
 import by.anthony.scheduler.model.Task;
-import by.anthony.scheduler.repository.TaskRepository;
+import by.anthony.scheduler.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class TaskController {
 
+    private final TaskService service;
+
     @Autowired
-    private TaskRepository taskRepository;
+    public TaskController(TaskService service) {
+        this.service = service;
+    }
 
     @PostMapping("/tasks")
-    public Task create(@RequestBody Task task) {
-        return taskRepository.save(task);
+    public Task createTask(@RequestBody Task task) {
+        return service.createTask(task);
     }
 
     @GetMapping("/tasks")
     public Iterable<Task> getAllTasks() {
-        return taskRepository.findAll();
+        return service.getAllTasks();
     }
 
     @GetMapping("/tasks/{id}")
     public Task getTaskById(@PathVariable long id) {
-        return taskRepository.findById(id).orElse(null);
+        return service.getTaskById(id);
     }
 
     @PutMapping("/tasks/{id}")
-    public Task update(@RequestBody Task task,
-                       @PathVariable long id) {
-        task.setId(id);
-        return taskRepository.save(task);
+    public Task updateTask(@RequestBody Task task,
+                           @PathVariable long id) {
+        return service.updateTask(task, id);
     }
 
     @DeleteMapping("tasks/{id}")
-    public void delete(@PathVariable long id) {
-        taskRepository.deleteById(id);
+    public void deleteTask(@PathVariable long id) {
+        service.deleteTask(id);
     }
 
     @PatchMapping("/tasks/{id}")
     public void patchTask(@PathVariable long id,
                           @RequestBody Task task) {
-        if (task.isDone()) {
-            taskRepository.markAsDone(id);
-        }
+        service.markAsDone(id, task);
     }
 
     @PatchMapping("/tasks/{id}:mark-as-done")
     public void patchTask(@PathVariable long id) {
-        taskRepository.markAsDone(id);
+        service.markAsDone(id);
     }
 
 }
